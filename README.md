@@ -1,2 +1,2 @@
 # RestaurantManagementSystem
-A Java-based restaurant management application with billing, menu management, inventory, and table tracking.
+Java + Swing based mini project for managing a restaurant with menu, billing, tables, inventory, calculator, and currency converter.
