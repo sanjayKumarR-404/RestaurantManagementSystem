@@ -3,18 +3,27 @@ package db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
+import java.io.InputStream;
 
 public class DBConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/restaurant_db"; // your DB name
-    private static final String USER = "root"; // your MySQL username
-    private static final String PASSWORD = "Sa20082005!"; // your MySQL password
+    private static String URL;
+    private static String USER;
+    private static String PASSWORD;
 
-    public static Connection getConnection() {
-        try {
-            return DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (SQLException e) {
+    static {
+        try (InputStream input = DBConnection.class.getClassLoader().getResourceAsStream("dbconfig.properties")) {
+            Properties prop = new Properties();
+            prop.load(input);
+            URL = prop.getProperty("db.url");
+            USER = prop.getProperty("db.user");
+            PASSWORD = prop.getProperty("db.password");
+        } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
+    }
+
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }

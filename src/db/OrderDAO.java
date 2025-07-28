@@ -1,22 +1,14 @@
 package db;
 
 import gui.MenuItem;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDAO {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/restaurant_db";
-    private static final String USER = "root";       // or your DB user
-    private static final String PASSWORD = "Sa20082005!"; // update if needed
+    // Use DBConnection.getConnection() throughout
 
-    private static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
-    }
-
-    // OrderDAO.java
     public static List<MenuItem> getAllMenuItems() {
         List<MenuItem> itemList = new ArrayList<>();
         try (Connection conn = DBConnection.getConnection();
@@ -35,11 +27,9 @@ public class OrderDAO {
         return itemList;
     }
 
-
-    // Add a new menu item
     public static void addMenuItem(MenuItem item) {
         String sql = "INSERT INTO menu (item_name, price) VALUES (?, ?)";
-        try (Connection conn = getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, item.getName());
@@ -51,10 +41,9 @@ public class OrderDAO {
         }
     }
 
-    // Delete a menu item by name
     public static void deleteMenuItem(String name) {
         String sql = "DELETE FROM menu WHERE item_name = ?";
-        try (Connection conn = getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, name);
@@ -65,10 +54,9 @@ public class OrderDAO {
         }
     }
 
-    // Insert an order into the orders table
     public static void insertOrder(String itemName, int qty, double itemTotal) {
         String sql = "INSERT INTO orders (item_name, quantity, item_total) VALUES (?, ?, ?)";
-        try (Connection conn = getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, itemName);
@@ -80,15 +68,14 @@ public class OrderDAO {
             e.printStackTrace();
         }
     }
-    // Clear all orders from the orders table
+
     public static void clearOrdersTable() {
         String sql = "DELETE FROM orders";
-        try (Connection conn = getConnection();
+        try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
 }

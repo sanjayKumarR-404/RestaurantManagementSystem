@@ -5,6 +5,7 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
+import db.DBConnection;
 
 public class InventoryManagementSystem extends JFrame {
     private JTable table;
@@ -145,7 +146,7 @@ public class InventoryManagementSystem extends JFrame {
 
     private void loadInventory() {
         model.setRowCount(0);
-        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/restaurant_db", "root", "Sa20082005!");
+        try (Connection con = DBConnection.getConnection();
              Statement stmt = con.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT item_name, quantity, threshold FROM inventory")) {
 
@@ -173,7 +174,7 @@ public class InventoryManagementSystem extends JFrame {
             int qty = Integer.parseInt(quantityField.getText());
             int threshold = Integer.parseInt(thresholdField.getText());
 
-            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/restaurant_db", "root", "Sa20082005!");
+            try (Connection con = DBConnection.getConnection();
                  PreparedStatement ps = con.prepareStatement("INSERT INTO inventory (item_name, quantity, threshold) VALUES (?, ?, ?)")) {
 
                 ps.setString(1, name);
@@ -206,7 +207,7 @@ public class InventoryManagementSystem extends JFrame {
         try {
             int qty = Integer.parseInt(quantityField.getText());
 
-            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/restaurant_db", "root", "Sa20082005!");
+            try (Connection con = DBConnection.getConnection();
                  PreparedStatement ps = con.prepareStatement("UPDATE inventory SET quantity = ? WHERE item_name = ?")) {
 
                 ps.setInt(1, qty);
@@ -236,7 +237,7 @@ public class InventoryManagementSystem extends JFrame {
         String itemName = (String) model.getValueAt(row, 0);
         int confirm = JOptionPane.showConfirmDialog(this, "Delete selected item?", "Confirm", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
-            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/restaurant_db", "root", "Sa20082005!");
+            try (Connection con = DBConnection.getConnection();
                  PreparedStatement ps = con.prepareStatement("DELETE FROM inventory WHERE item_name = ?")) {
 
                 ps.setString(1, itemName);
