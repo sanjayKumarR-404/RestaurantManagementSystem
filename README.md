@@ -118,7 +118,7 @@ password = your_password
 ## 👨‍💻 Author
 
 **Sanjay Kumar R**  
-Bachelor of Engineering (B.E.) in Computer Science Engineering (2024 - 2027)  
+Bachelor of Engineering (B.E.) in Computer Science Engineering (2023 - 2027)  
 Email: rsanjaymail@gmail.com  
 LinkedIn: [linkedin.com/in/SanjayKumarR20082005/](linkedin.com/in/SanjayKumarR20082005/)  
 GitHub: [@sanjayKumarR-404](https://github.com/sanjayKumarR-404)  
