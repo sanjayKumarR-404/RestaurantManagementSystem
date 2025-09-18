@@ -29,7 +29,6 @@ Perfect for small to medium-sized restaurants to manage menus, orders, inventory
 - **Frontend**: Java Swing  
 - **Backend**: Java  
 - **Database**: MySQL  
-- **IDE**: IntelliJ IDEA  
 - **Connector**: JDBC  
 
 ---
